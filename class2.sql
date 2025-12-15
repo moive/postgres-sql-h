@@ -50,4 +50,11 @@ HAVING
   --   COUNT(*) > 5
   COUNT(*) BETWEEN 3 AND 5
 ORDER BY
-  total DESC
+  total DESC;
+
+SELECT DISTINCT
+  country
+FROM
+  users
+ORDER BY
+  country ASC;
