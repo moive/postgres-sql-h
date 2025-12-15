@@ -30,11 +30,24 @@ WHERE
  followers = 4 OR followers = 4999;
  
  
- SELECT
+SELECT
   COUNT(*),
   followers
 FROM
   users
 WHERE followers = 4 OR followers = 4999
 GROUP BY followers
-ORDER BY followers DESC
+ORDER BY followers DESC;
+
+SELECT
+  COUNT(*) AS total,
+  country
+FROM
+  users
+GROUP BY
+  country
+HAVING
+  --   COUNT(*) > 5
+  COUNT(*) BETWEEN 3 AND 5
+ORDER BY
+  total DESC
