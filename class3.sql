@@ -72,3 +72,19 @@ WHERE
 CREATE UNIQUE INDEX "unique_name_countrycode_district" ON city (name, countrycode, district);
 
 CREATE INDEX "city_district" ON city (district);
+
+-- create foreign key
+SELECT * FROM city WHERE countrycode = 'AFG';
+SELECT * FROM country WHERE code = 'AFG';
+
+ALTER TABLE city
+  ADD CONSTRAINT fk_countrycode 
+  FOREIGN KEY (countrycode) 
+  REFERENCES country (code); -- ON DELETE CASCADE
+  
+ALTER TABLE city DROP CONSTRAINT fk_countrycode
+
+
+-- INSERT DATA
+INSERT INTO country
+		values('AFG', 'Afghanistan', 'Asia', 'Southern Asia', 652860, 1919, 40000000, 62, 69000000, NULL, 'Afghanistan', 'Totalitarian', NULL, NULL, 'AF');
