@@ -43,3 +43,17 @@ DROP CONSTRAINT "country_continent_check1"
 CREATE UNIQUE INDEX "unique_country_name" ON country (name)
 
 CREATE INDEX "country_continent" ON country(continent)
+
+
+-- Display restrictions fields on the table
+SELECT 
+    conname AS constraint_name,
+    contype AS constraint_type,
+    condeferrable AS is_deferrable,
+    condeferred AS is_deferred,
+    pg_catalog.pg_get_constraintdef(c.oid) AS definition
+FROM 
+    pg_catalog.pg_constraint c
+    JOIN pg_catalog.pg_namespace n ON n.oid = c.connamespace
+WHERE 
+    c.conrelid = 'country'::regclass;
