@@ -38,3 +38,8 @@ ADD CHECK (
 
 ALTER TABLE country
 DROP CONSTRAINT "country_continent_check1"
+
+-- create indexes
+CREATE UNIQUE INDEX "unique_country_name" ON country (name)
+
+CREATE INDEX "country_continent" ON country(continent)
