@@ -57,3 +57,18 @@ FROM
     JOIN pg_catalog.pg_namespace n ON n.oid = c.connamespace
 WHERE 
     c.conrelid = 'country'::regclass;
+
+
+-- working with indexes
+SELECT
+  *
+FROM
+  city
+WHERE
+  name = 'Jinzhou'
+  AND countrycode = 'CHN'
+  AND district = 'Liaoning'
+
+CREATE UNIQUE INDEX "unique_name_countrycode_district" ON city (name, countrycode, district);
+
+CREATE INDEX "city_district" ON city (district);
