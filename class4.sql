@@ -20,3 +20,7 @@ SELECT * FROM continent;
 
 INSERT INTO country_bk
 SELECT * FROM country -- replace values of inserta data
+
+--delete country_continent_check
+ALTER TABLE country
+DROP CONSTRAINT country_continent_check
