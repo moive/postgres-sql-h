@@ -39,3 +39,9 @@ UPDATE country a
 SET continent = (SELECT "code" FROM continent b WHERE b."name" = a.continent)
 
 SELECT * FROM country;
+
+-- alter type column: continent
+ALTER TABLE country
+ALTER COLUMN continent
+TYPE int4
+USING continent::integer
