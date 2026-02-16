@@ -24,3 +24,18 @@ SELECT * FROM country -- replace values of inserta data
 --delete country_continent_check
 ALTER TABLE country
 DROP CONSTRAINT country_continent_check
+
+
+-- update TABLE country row continent
+SELECT
+  a."name",
+  a.continent,
+  (SELECT "code" FROM continent b WHERE b."name" = a.continent)
+FROM
+  country a;
+  
+  
+UPDATE country a
+SET continent = (SELECT "code" FROM continent b WHERE b."name" = a.continent)
+
+SELECT * FROM country;
