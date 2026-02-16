@@ -16,3 +16,7 @@ INSERT INTO
     continent ASC;
   --code select distinct continent replace values of insert data
 SELECT * FROM continent;
+
+
+INSERT INTO country_bk
+SELECT * FROM country -- replace values of inserta data
