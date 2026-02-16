@@ -45,3 +45,9 @@ ALTER TABLE country
 ALTER COLUMN continent
 TYPE int4
 USING continent::integer
+
+-- add foreign key country to references continent(code)
+ALTER TABLE country
+ADD CONSTRAINT fk_country_continent
+FOREIGN KEY (continent)
+REFERENCES continent(code)
