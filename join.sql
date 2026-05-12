@@ -8,3 +8,9 @@ ORDER BY NAME DESC
 SELECT C.NAME AS Country, CT.NAME AS Continent FROM country C, continent CT
 WHERE C.continent = CT.code
 ORDER BY CT.NAME ASC
+
+-- use JOIN to connect the country continent tables
+SELECT A."name" AS COUNTRY, B."name" AS CONTINENT FROM country A
+INNER JOIN continent B
+ON A.continent = B.code
+ORDER BY A."name" ASC
