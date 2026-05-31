@@ -52,3 +52,25 @@ ON a.continent = b.code
 WHERE a.continent IS NULL
 GROUP BY b.name
 ORDER BY count ASC;
+
+--homework
+-- Count Union - Tarea
+-- Total |  Continent
+-- 5	  | Antarctica
+-- 28	  | Oceania
+-- 46	  | Europe
+-- 51	  | America
+-- 51	  | Asia
+-- 58	  | Africa
+
+(SELECT COUNT(*) AS Total, b.name AS Continent FROM country AS a
+INNER JOIN continent AS b
+ON a.continent = b.code
+WHERE b.name NOT like '%America%'
+GROUP BY b.name)
+UNION
+(SELECT COUNT(*) AS Total, 'America' AS Continent FROM country AS a
+INNER JOIN continent AS b
+ON a.continent = b.code
+WHERE b.name like '%America%')
+ORDER BY Total;
