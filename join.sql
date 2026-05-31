@@ -14,3 +14,14 @@ SELECT A."name" AS COUNTRY, B."name" AS CONTINENT FROM country A
 INNER JOIN continent B
 ON A.continent = B.code
 ORDER BY A."name" ASC
+
+-- use FULL OUTER JOIN
+SELECT
+  a.name AS country,
+  a.continent AS continentCode,
+  b.name AS continentName
+FROM
+  country a
+  FULL OUTER JOIN continent b ON a.continent = b.code
+ORDER BY
+  a.name DESC
