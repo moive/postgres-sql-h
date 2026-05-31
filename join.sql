@@ -37,3 +37,18 @@ FROM
 WHERE
   a.continent IS NULL
   ORDER BY a.name DESC;
+
+--agregation join
+SELECT COUNT(*) AS count, b.name FROM country AS a
+FULL OUTER JOIN continent AS b
+ON a.continent = b.code
+GROUP BY b.name
+
+UNION
+
+SELECT 0 AS count, b.name FROM country AS a
+RIGHT JOIN continent AS b
+ON a.continent = b.code
+WHERE a.continent IS NULL
+GROUP BY b.name
+ORDER BY count ASC;
