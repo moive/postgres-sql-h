@@ -24,4 +24,16 @@ FROM
   country a
   FULL OUTER JOIN continent b ON a.continent = b.code
 ORDER BY
-  a.name DESC
+  a.name DESC;
+
+-- use RIGHT OUTER JOIN
+SELECT
+  a.name AS country,
+  a.continent AS continentCode,
+  b.name AS continentName
+FROM
+  country AS a
+  RIGHT JOIN continent AS b ON a.continent = b.code
+WHERE
+  a.continent IS NULL
+  ORDER BY a.name DESC;
