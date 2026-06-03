@@ -90,3 +90,30 @@ GROUP BY
 ORDER BY
   count(*) DESC
 LIMIT 1;
+
+-- Quiero saber los idiomas oficiales que se hablan por continente
+
+SELECT DISTINCT la.language AS idiomas, co.name AS continent from countrylanguage la
+INNER JOIN country cou ON la.countrycode = cou.code
+INNER JOIN continent co ON cou.continent = co.code
+WHERE isofficial IS TRUE;
+
+-- ¿Cuántos idiomas oficiales se hablan por continente?
+
+SELECT
+  count(*),
+  continent
+FROM
+  (
+    SELECT DISTINCT
+      la.language AS idiomas,
+      co.name AS continent
+    from
+      countrylanguage la
+      INNER JOIN country cou ON la.countrycode = cou.code
+      INNER JOIN continent co ON cou.continent = co.code
+    WHERE
+      isofficial IS TRUE
+  ) AS totales
+  
+GROUP by continent
