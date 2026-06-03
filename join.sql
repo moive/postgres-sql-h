@@ -117,3 +117,13 @@ FROM
   ) AS totales
   
 GROUP by continent
+
+
+
+-- Quiero saber los idiomas oficiales que se hablan por continente
+
+SELECT DISTINCT la.name, co.name AS continent from countrylanguage cla
+INNER JOIN country cou ON cla.countrycode = cou.code
+INNER JOIN continent co ON cou.continent = co.code
+INNER JOIN language la ON la.code = cla.languagecode
+WHERE isofficial IS TRUE;
