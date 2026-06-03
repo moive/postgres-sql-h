@@ -74,3 +74,19 @@ INNER JOIN continent AS b
 ON a.continent = b.code
 WHERE b.name like '%America%')
 ORDER BY Total;
+
+
+-- Quiero que me muestren el país con más ciudades
+-- Campos: total de ciudades y el nombre del país
+-- usar INNER JOIN
+SELECT
+  count(*) AS total,
+  co.name AS country
+FROM
+  city ci
+  INNER JOIN country co ON ci.countrycode = co.code
+GROUP BY
+  co.name
+ORDER BY
+  count(*) DESC
+LIMIT 1;
