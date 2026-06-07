@@ -127,3 +127,28 @@ INNER JOIN country cou ON cla.countrycode = cou.code
 INNER JOIN continent co ON cou.continent = co.code
 INNER JOIN language la ON la.code = cla.languagecode
 WHERE isofficial IS TRUE;
+
+
+-- ¿Cuál es el idioma (y código del idioma) oficial más hablado por diferentes paises en Europa?
+
+SELECT * FROM countrylanguage WHERE isofficial = true;
+SELECT * FROM country;
+SELECT * FROM continent;
+SELECT * FROM "language";
+
+
+
+SELECT count(*), b.languagecode, b."language" FROM country a
+INNER JOIN countrylanguage b ON a.code = b.countrycode
+WHERE a.continent = 5 AND b.isofficial = true
+GROUP BY b.languagecode, b."language"
+ORDER BY count(*) DESC
+LIMIT 1;
+
+
+-- Listado de todos los paises cuyo idioma oficial es el más hablado de Europa
+
+-- (no hacer subquery, tomar el código anterior)
+SELECT * FROM country a
+INNER JOIN countrylanguage b ON a.code = b.countrycode
+WHERE a.continent = 5 and isofficial = true and b.languagecode = 135
