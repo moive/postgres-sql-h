@@ -152,3 +152,8 @@ LIMIT 1;
 SELECT * FROM country a
 INNER JOIN countrylanguage b ON a.code = b.countrycode
 WHERE a.continent = 5 and isofficial = true and b.languagecode = 135
+
+-- Obtener el total de empleados y la suma de los salarios
+SELECT
+(SELECT count(*) FROM employees) AS total,
+(SELECT SUM(salary) from employees) AS monto
