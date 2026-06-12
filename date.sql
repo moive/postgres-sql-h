@@ -26,3 +26,16 @@ FROM
 SELECT * FROM employees
 WHERE hire_date BETWEEN '1999-01-01' AND '2001-01-04'
 ORDER BY hire_date DESC;
+
+-- INTERVAL
+SELECT
+  MAX(hire_date) AS maxx,
+  --   MAX(hire_date) + INTERVAL '1 days' AS days,
+  --   MAX(hire_date) + INTERVAL '1 months' AS months,
+  --   MAX(hire_date) + INTERVAL '1 years' AS years
+  MAX(hire_date) + INTERVAL '1 years' + INTERVAL '1 days' AS years,
+  date_part('year', now()) AS now,
+  MAKE_INTERVAL(YEARS := date_part('year', now()):: INTEGER),
+  MAX(hire_date) + make_interval(YEARS:=23) AS max_make_interval
+FROM
+  employees;
