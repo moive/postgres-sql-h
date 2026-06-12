@@ -39,3 +39,21 @@ SELECT
   MAX(hire_date) + make_interval(YEARS:=23) AS max_make_interval
 FROM
   employees;
+
+-- diferencia entre fechas
+SELECT 
+	hire_date, 
+	make_interval( YEARS := 2023 - EXTRACT( YEARS FROM hire_date )::INTEGER ) AS manual,
+	make_interval( YEARS := date_part('years', CURRENT_DATE)::INTEGER - EXTRACT( YEARS FROM hire_date )::INTEGER ) AS computed
+FROM employees
+ORDER BY hire_date DESC;
+
+-- actualizar hire_date agregando año actual de edición
+SELECT 
+	hire_date, 
+	hire_date + INTERVAL '26 years' 
+FROM employees
+ORDER BY hire_date DESC;
+
+UPDATE employees
+SET hire_date = hire_date + INTERVAL '26 years'
