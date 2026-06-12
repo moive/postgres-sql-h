@@ -57,3 +57,19 @@ ORDER BY hire_date DESC;
 
 UPDATE employees
 SET hire_date = hire_date + INTERVAL '26 years'
+
+-- clausula CASE THEN
+SELECT
+  first_name,
+  last_name,
+  hire_date,
+  CASE
+  	WHEN hire_date > now() - INTERVAL '1 year' THEN 'Range A'
+  	WHEN hire_date > now() - INTERVAL '3 year' THEN 'Range B'
+  	WHEN hire_date > now() - INTERVAL '6 year' THEN 'Range C'
+  	ELSE 'Range D'
+  END as range_age
+FROM
+  employees
+ORDER BY
+  hire_date DESC;
