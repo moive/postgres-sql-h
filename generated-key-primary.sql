@@ -23,3 +23,10 @@ CREATE TABLE users(
 	"user_id" INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 100 INCREMENT BY 2),
 	"username" VARCHAR(30)
 );
+
+-- mixed primary keys
+CREATE TABLE users_dual(
+	id1 int,
+	id2 int,
+	PRIMARY KEY(id1, id2)
+);
