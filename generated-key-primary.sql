@@ -30,3 +30,17 @@ CREATE TABLE users_dual(
 	id2 int,
 	PRIMARY KEY(id1, id2)
 );
+
+--gen_random_uuid
+SELECT gen_random_uuid();
+
+-- Install extension uuid-ossp
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+SELECT gen_random_uuid(), uuid_generate_v4();
+
+-- UUIDs
+CREATE TABLE users(
+	"user_id" UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+	"username" VARCHAR
+);
