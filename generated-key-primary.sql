@@ -44,3 +44,14 @@ CREATE TABLE users(
 	"user_id" UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
 	"username" VARCHAR
 );
+
+-- sequence
+DROP SEQUENCE user_sequence;
+CREATE SEQUENCE user_sequence;
+
+select currval('user_sequence'), nextval('user_sequence'), currval('user_sequence')
+
+CREATE TABLE users(
+	"user_id" INTEGER PRIMARY KEY DEFAULT nextval('user_sequence'),
+	"username" VARCHAR(10)
+);
