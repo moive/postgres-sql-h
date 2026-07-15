@@ -158,3 +158,38 @@ WHERE
   comment_parent_id IS NULL
 
 
+-- creando una función sayHello
+CREATE
+OR REPLACE FUNCTION sayHello (user_name varchar) RETURNS varchar AS $$
+BEGIN
+RETURN 'Hi ' || user_name;
+END
+$$ LANGUAGE plpgsql;
+-- probando la función sayHello
+SELECT sayhello(username), username FROM users;
+
+
+-- creando la función comment_replies
+CREATE
+OR REPLACE FUNCTION comment_replies (id integer) RETURNS json AS $$
+DECLARE result json;
+BEGIN
+ SELECT
+ json_agg(json_build_object(
+ 	'user', COMMENTS.user_id,
+ 	'comment', COMMENTS.content
+ )) INTO result
+ FROM COMMENTS where comment_parent_id = id;
+ RETURN result;
+END;
+$$ LANGUAGE plpgsql;
+--probando la función comment_replies
+SELECT comment_replies (1);
+
+SELECT
+  *,
+  comment_replies(a.post_id) as replies
+FROM
+  COMMENTS a
+WHERE
+  comment_parent_id IS NULL
