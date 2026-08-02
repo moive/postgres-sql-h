@@ -37,3 +37,13 @@ SELECT * FROM comments_per_week;
 SELECT * FROM comments_per_week_mat;
 -- for refresh view materialized
 REFRESH MATERIALIZED VIEW comments_per_week_mat;
+
+--rename view
+SELECT * FROM comments_per_week;
+ALTER VIEW comments_per_week RENAME TO posts_per_week
+SELECT * FROM posts_per_week;
+
+--rename view materialize
+SELECT * FROM comments_per_week_mat;
+ALTER MATERIALIZED VIEW comments_per_week_mat RENAME TO posts_per_week_mat
+SELECT * FROM posts_per_week_mat;
