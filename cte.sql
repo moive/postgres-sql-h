@@ -100,3 +100,25 @@ INSERT INTO "public"."employees" ("id", "name", "reports_to") VALUES
 (9, 'Programador Eduardo', 7),
 (10, 'Presidente Karla', NULL),
 (11, 'Jr Mariano', 8);
+
+--exercise real
+WITH RECURSIVE
+  bosses AS (
+    -- Init
+    SELECT
+      id,
+      name,
+      reports_to
+    FROM
+      employees
+    WHERE
+      id = 11
+    UNION
+    -- Recursive
+    SELECT employees.id, employees."name", employees.reports_to FROM employees
+    INNER JOIN bosses ON bosses.id = employees.reports_to
+  )
+SELECT
+  *
+FROM
+  bosses;
