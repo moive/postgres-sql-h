@@ -146,4 +146,68 @@ SELECT
   *
 FROM
   bosses;
-  
+
+-- display name boss
+WITH RECURSIVE
+  bosses AS (
+    -- Init
+    SELECT
+      id,
+      name,
+      reports_to,
+      NULL::VARCHAR AS name_boss, -- 'No boss'::VARCHAR AS name_boss,
+      1 as depth
+    FROM
+      employees
+    WHERE
+      id = 1
+    UNION ALL
+    -- Recursive
+    SELECT
+      employees.id,
+      employees."name",
+      employees.reports_to,
+      bosses.name AS name_boss,
+      depth + 1
+    FROM
+      employees
+      INNER JOIN bosses ON bosses.id = employees.reports_to
+    WHERE
+      depth < 10
+  )
+SELECT
+  *
+FROM
+  bosses;
+
+-- other name MORE EFFICIENT
+WITH RECURSIVE
+  bosses AS (
+    -- Init
+    SELECT
+      id,
+      name,
+      reports_to,
+      1 as depth
+    FROM
+      employees
+    WHERE
+      id = 1
+    UNION ALL
+    -- Recursive
+    SELECT
+      employees.id,
+      employees."name",
+      employees.reports_to,
+      depth + 1
+    FROM
+      employees
+      INNER JOIN bosses ON bosses.id = employees.reports_to
+    WHERE
+      depth < 10
+  )
+SELECT
+  bosses.*, COALESCE(employees.name, 'Sin jefe') AS reports_to_name
+FROM
+  bosses
+LEFT JOIN employees ON employees.id = bosses.reports_to ORDER BY depth
