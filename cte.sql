@@ -98,4 +98,5 @@ INSERT INTO "public"."employees" ("id", "name", "reports_to") VALUES
 (7, 'SubGerente Ramiro', 5),
 (8, 'Programador Fernando', 7),
 (9, 'Programador Eduardo', 7),
-(10, 'Presidente Karla', NULL);
+(10, 'Presidente Karla', NULL),
+(11, 'Jr Mariano', 8);
