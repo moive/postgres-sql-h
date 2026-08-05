@@ -40,3 +40,15 @@ WITH RECURSIVE countdown (val) AS (
 )
 -- select
 SELECT * FROM countdown
+
+
+-- counter number desc
+WITH RECURSIVE counter (val) AS (
+	-- intialize
+		SELECT 1 AS val
+	UNION ALL
+	-- Query recursive
+	SELECT val + 1 FROM counter WHERE val < 10
+)
+-- select
+SELECT * FROM counter
