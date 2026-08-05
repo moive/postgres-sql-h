@@ -224,3 +224,21 @@ FROM
   followers
   INNER JOIN "user" AS leader ON leader.id = followers.leader_id
   INNER JOIN "user" AS follower ON follower.id = followers.follower_id;
+
+
+-- withour recursive
+-- SELECT * FROM followers WHERE leader_id = 1;
+SELECT
+  *
+FROM
+  followers
+WHERE
+  leader_id in (
+    SELECT
+      follower_id
+    FROM
+      followers
+    WHERE
+      leader_id = 1
+  );
+  
