@@ -52,3 +52,26 @@ WITH RECURSIVE counter (val) AS (
 )
 -- select
 SELECT * FROM counter
+
+-- table multiplication
+WITH RECURSIVE
+  multiplication_table (base, val, result) AS (
+    SELECT
+      5 AS base,
+      1 AS val,
+      5 AS result
+    UNION ALL
+    SELECT
+      5 AS base,
+      val + 1,
+      (val + 1) * base AS result
+    FROM
+      multiplication_table
+    WHERE
+      val < 10
+  )
+SELECT
+  *
+FROM
+  multiplication_table;
+
