@@ -27,3 +27,16 @@ WITH claps_per_post AS (
 
 SELECT * from claps_per_post
 WHERE claps_per_post.post_id IN (SELECT post_id FROM posts_from_2023)
+
+-- CTEs recursive
+-- name table memory
+-- fields
+WITH RECURSIVE countdown (val) AS (
+	-- intialize
+		SELECT 10 AS val
+	UNION ALL
+	-- Query recursive
+	SELECT val - 1 FROM countdown WHERE val > 1
+)
+-- select
+SELECT * FROM countdown
