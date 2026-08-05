@@ -122,3 +122,28 @@ SELECT
   *
 FROM
   bosses;
+
+-- recursive with limit
+WITH RECURSIVE
+  bosses AS (
+    -- Init
+    SELECT
+      id,
+      name,
+      reports_to,
+      1 as depth
+    FROM
+      employees
+    WHERE
+      id = 1
+    UNION
+    -- Recursive
+    SELECT employees.id, employees."name", employees.reports_to, depth + 1 FROM employees
+    INNER JOIN bosses ON bosses.id = employees.reports_to
+    WHERE depth < 4
+  )
+SELECT
+  *
+FROM
+  bosses;
+  
