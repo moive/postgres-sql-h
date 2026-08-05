@@ -211,3 +211,16 @@ SELECT
 FROM
   bosses
 LEFT JOIN employees ON employees.id = bosses.reports_to ORDER BY depth
+
+
+
+-- work database twitter_follower
+-- with recursive
+SELECT
+  followers.*,
+  leader."name" AS leader_name,
+  follower."name" AS follower_name
+FROM
+  followers
+  INNER JOIN "user" AS leader ON leader.id = followers.leader_id
+  INNER JOIN "user" AS follower ON follower.id = followers.follower_id;
