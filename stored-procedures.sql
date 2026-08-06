@@ -32,3 +32,14 @@ $$ LANGUAGE plpgsql;
 CALL insert_region_proc(5, 'Central America');
 
 SELECT * FROM regions;
+
+
+-- Salary increase
+SELECT
+  current_date AS "date",
+  salary,
+  max_raise (employee_id),
+  max_raise (employee_id) * 0.01 AS amount,
+  1 AS percentage
+FROM
+  employees;
