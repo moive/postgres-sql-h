@@ -136,3 +136,25 @@ CALL user_login('job','123456 ');
 
 SELECT * FROM user_trigger;
 SELECT * FROM session_failed;
+
+
+-- CREATE TRIGGER create_session_trigger
+CREATE OR REPLACE TRIGGER create_session_trigger AFTER UPDATE ON user_trigger
+FOR EACH ROW 
+WHEN (OLD.last_login IS DISTINCT FROM NEW.last_login)
+EXECUTE FUNCTION create_session_log();
+
+CREATE OR REPLACE FUNCTION create_session_log()
+RETURNS TRIGGER AS $$
+
+BEGIN
+	INSERT INTO "session"(user_id, last_login) VALUES(NEW.id, now());
+	RETURN NEW;
+END;
+
+$$ LANGUAGE plpgsql;
+
+
+CALL user_login('moises','123456');
+SELECT * FROM "session";
+SELECT * FROM user_trigger;
