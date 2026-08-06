@@ -81,3 +81,22 @@ CALL controlled_raise(1);
 
 SELECT * from raise_history;
 SELECT * FROM employees;
+
+--install extention pgcrypto
+CREATE EXTENSION pgcrypto;
+
+-- insert data with password encrypt
+INSERT INTO user_trigger (username, password)
+VALUES(
+	'job',
+	crypt('123456', gen_salt('bf'))
+)
+
+
+SELECT * FROM user_trigger;
+
+SELECT * FROM user_trigger 
+WHERE username = 'job' AND password = crypt('123456', password);
+
+SELECT COUNT(*) FROM user_trigger 
+WHERE username = 'job' AND password = crypt('123456', password);
