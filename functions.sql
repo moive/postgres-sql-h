@@ -133,3 +133,49 @@ FROM
   employees;
   
 -- SELECT * FROM employees WHERE employee_id = 206;
+
+
+-- use ROWTYPE
+CREATE OR REPLACE FUNCTION max_raise_multiple_variable (empl_id int) 
+RETURNS NUMERIC(8, 2) AS $$
+
+DECLARE
+	
+	selected_employee employees%rowtype;
+	selected_job jobs%rowtype;
+	possible_raise NUMERIC(8,2);
+
+BEGIN
+	-- Take the job and the salary
+	SELECT *
+	FROM employees
+	INTO selected_employee
+	WHERE employee_id = empl_id;
+	
+	-- Take the highest salary based on the employee's work
+	SELECT *
+	FROM jobs
+	INTO selected_job
+	WHERE job_id = selected_employee.job_id;
+	
+	-- Calculations
+	possible_raise = selected_job.max_salary - selected_employee.salary;
+	
+	IF possible_raise < 0 THEN
+		RAISE EXCEPTION 'Person with highest salary max_salary: id:%, %', selected_employee.employee_id, selected_employee.first_name;
+-- 		possible_raise = 0;
+	END IF;
+	
+	RETURN possible_raise;
+
+END;
+
+$$ LANGUAGE plpgsql;
+
+SELECT
+  employee_id,
+  first_name,
+  max_raise (employee_id),
+  max_raise_multiple_variable(employee_id)
+FROM
+  employees;
