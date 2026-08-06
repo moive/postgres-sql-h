@@ -100,3 +100,39 @@ WHERE username = 'job' AND password = crypt('123456', password);
 
 SELECT COUNT(*) FROM user_trigger 
 WHERE username = 'job' AND password = crypt('123456', password);
+
+
+--create stored procedure user_login
+CREATE OR REPLACE PROCEDURE user_login(user_name VARCHAR, user_password VARCHAR)
+AS $$
+DECLARE
+	was_found BOOLEAN;
+BEGIN
+	
+	SELECT COUNT(*) INTO was_found FROM user_trigger 
+		WHERE username = user_name AND password = crypt(user_password, password);
+		
+	IF (was_found = false) THEN
+		INSERT INTO session_failed(username, "when")
+		VALUES(user_name, now());
+		
+		COMMIT;
+		
+		RAISE EXCEPTION 'User and password are invalid';
+	ELSE
+		UPDATE user_trigger 
+		SET last_login = now() 
+		WHERE username = user_name;
+		
+		COMMIT;
+		
+		RAISE NOTICE 'User found %', was_found;
+	END IF;
+END;
+
+$$ LANGUAGE plpgsql;
+
+CALL user_login('job','123456 ');
+
+SELECT * FROM user_trigger;
+SELECT * FROM session_failed;
